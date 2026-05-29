@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Дон Рикко — Книга</title>
+  <meta name="description" content="51 год в бизнесе. Первый миллион в 27. Всё что знает — в одной книге. 6 июля 2026."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c:   #f2ead8;
+  --g:   #c8a246;
+  --gd:  #7a5e20;
+  --bg:  #100d09;
+  --bg2: #1c1510;
+  --bg3: #251d14;
+  --mid: #5a4a33;
+  --rule:rgba(200,162,70,.28);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Jost',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--c);font-family:var(--serif);overflow-x:hidden;cursor:none}
+
+/* custom cursor */
+.cur{position:fixed;width:6px;height:6px;background:var(--g);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s,opacity .2s}
+.cur-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(200,162,70,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .4s cubic-bezier(.2,1,.3,1)}
+
+/* ── HERO ── */
+#hero{
+  height:100vh;min-height:700px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  position:relative;overflow:hidden;
+}
+
+/* left dark panel */
+.hero-left{
+  background:var(--bg);
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:4rem 3rem 4rem 5vw;
+  position:relative;z-index:2;
+}
+
+/* right atmospheric panel */
+.hero-right{
+  position:relative;
+  background:var(--bg2);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+
+/* candle-light vignette on right */
+.hero-right::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 60%,
+      rgba(200,162,70,.07) 0%,
+      rgba(16,13,9,.85) 100%);
+  z-index:1;
+}
+
+/* big ambient DR */
+.hero-ambient{
+  position:absolute;
+  font-family:var(--serif);
+  font-size:clamp(14rem,22vw,22rem);
+  font-weight:900;
+  font-style:italic;
+  color:var(--bg3);
+  line-height:1;
+  user-select:none;
+  letter-spacing:-.02em;
+  z-index:0;
+  right:-3rem;bottom:-2rem;
+}
+
+/* year rotated */
+.hero-year-tag{
+  position:absolute;
+  right:2rem;top:50%;
+  transform:rotate(90deg) translateX(-50%);
+  transform-origin:right center;
+  font-family:var(--sans);
+  font-size:.55rem;
+  letter-spacing:.3em;
+  color:var(--mid);
+  text-transform:uppercase;
+  z-index:2;
+}
+
+/* hero left content */
+.hero-eyebrow{
+  font-family:var(--sans);
+  font-size:.6rem;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--g);
+  margin-bottom:2rem;
+}
+
+.hero-h1{
+  font-size:clamp(3.2rem,5.5vw,5.5rem);
+  font-weight:700;
+  font-style:italic;
+  line-height:1.05;
+  letter-spacing:-.01em;
+  margin-bottom:1.8rem;
+}
+
+.hero-h1 span{
+  display:block;
+  font-style:normal;
+  font-weight:400;
+  font-size:.52em;
+  color:var(--mid);
+  letter-spacing:.02em;
+}
+
+.hero-desc{
+  font-family:var(--sans);
+  font-size:.8rem;
+  font-weight:300;
+  color:var(--mid);
+  line-height:1.8;
+  max-width:360px;
+  margin-bottom:2.5rem;
+}
+
+.hero-actions{display:flex;align-items:center;gap:2rem}
+
+.btn{
+  font-family:var(--sans);
+  font-size:.6rem;letter-spacing:.2em;
+  text-transform:uppercase;
+  text-decoration:none;
+  display:inline-block;
+  cursor:pointer;border:none;background:none;
+}
+
+.btn-fill{
+  background:var(--g);color:var(--bg);
+  padding:.9rem 2.5rem;
+  transition:background .3s,letter-spacing .3s;
+}
+.btn-fill:hover{background:#d4ae58;letter-spacing:.25em}
+
+.btn-ghost{
+  color:var(--mid);
+  border-bottom:1px solid var(--rule);
+  padding-bottom:2px;
+  transition:color .3s;
+}
+.btn-ghost:hover{color:var(--c)}
+
+/* hero right big number */
+.hero-big-stat{
+  position:relative;z-index:2;
+  text-align:center;
+}
+.hero-big-num{
+  font-size:clamp(5rem,9vw,9rem);
+  font-weight:900;
+  font-style:italic;
+  color:var(--g);
+  line-height:1;
+  opacity:.9;
+}
+.hero-big-label{
+  font-family:var(--sans);
+  font-size:.55rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--mid);
+  margin-top:.6rem;
+}
+
+/* vertical divider line on hero */
+.hero-vline{
+  position:absolute;left:50%;top:10%;height:80%;
+  width:1px;background:var(--rule);
+  z-index:3;
+}
+
+/* ── TICKER ── */
+#ticker{
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  padding:.8rem 0;
+  overflow:hidden;background:var(--bg2);
+  position:relative;z-index:2;
+}
+.ticker-track{
+  display:flex;gap:0;
+  animation:tick 20s linear infinite;
+  width:max-content;
+}
+.ticker-item{
+  font-family:var(--sans);
+  font-size:.58rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--mid);
+  white-space:nowrap;padding:0 3rem;
+}
+.ticker-item span{color:var(--g);margin-right:.8rem}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── FULL-WIDTH QUOTE ── */
+#fw-quote{
+  padding:8rem 0;
+  position:relative;overflow:hidden;
+}
+#fw-quote::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--bg2) 0%,var(--bg) 100%);
+}
+.fw-quote-wrap{
+  position:relative;z-index:1;
+  max-width:1100px;margin:0 auto;padding:0 5vw;
+}
+.fw-quote-num{
+  font-family:var(--sans);
+  font-size:.55rem;letter-spacing:.25em;
+  color:var(--g);margin-bottom:2rem;
+}
+.fw-quote-text{
+  font-size:clamp(2rem,4.5vw,4rem);
+  font-weight:400;font-style:italic;
+  line-height:1.25;
+  max-width:900px;
+}
+.fw-quote-text em{color:var(--g);font-style:normal}
+.fw-quote-attr{
+  font-family:var(--sans);
+  font-size:.58rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--mid);
+  margin-top:2.5rem;
+}
+.fw-quote-attr::before{content:'— '}
+
+/* big decorative italic behind */
+.fw-bg-text{
+  position:absolute;
+  font-size:clamp(8rem,18vw,16rem);
+  font-style:italic;font-weight:900;
+  color:var(--bg2);
+  right:-2rem;bottom:-3rem;
+  line-height:1;
+  user-select:none;z-index:0;
+  letter-spacing:-.03em;
+}
+
+/* ── ABOUT SPLIT ── */
+#about{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:90vh;
+}
+.about-visual{
+  background:var(--bg2);
+  position:relative;overflow:hidden;
+  display:flex;align-items:flex-end;padding:3rem;
+}
+.about-visual-bg{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to top, rgba(16,13,9,.95) 30%, rgba(16,13,9,.4) 100%);
+  z-index:1;
+}
+/* placeholder portrait */
+.about-portrait-ph{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.about-portrait-ph::after{
+  content:'DR';
+  font-family:var(--serif);
+  font-size:20vw;font-style:italic;font-weight:900;
+  color:var(--bg3);
+}
+.about-visual-caption{
+  position:relative;z-index:2;
+}
+.about-visual-name{
+  font-size:clamp(1.8rem,3vw,2.8rem);
+  font-style:italic;
+  margin-bottom:.3rem;
+}
+.about-visual-loc{
+  font-family:var(--sans);
+  font-size:.55rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--mid);
+}
+
+.about-content{
+  padding:5rem 4rem 5rem 5rem;
+  display:flex;flex-direction:column;justify-content:center;
+  border-left:1px solid var(--rule);
+}
+.about-content .label{
+  font-family:var(--sans);
+  font-size:.55rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--g);
+  margin-bottom:1.8rem;
+}
+.about-content h2{
+  font-size:clamp(1.6rem,2.8vw,2.4rem);
+  font-weight:700;font-style:italic;
+  line-height:1.2;margin-bottom:2rem;
+}
+.about-content p{
+  font-family:var(--sans);
+  font-size:.8rem;font-weight:300;
+  color:var(--mid);line-height:1.85;
+  margin-bottom:1.2rem;
+}
+.about-content p strong{color:var(--c);font-weight:400}
+
+/* timeline minimal */
+.tl{margin:2rem 0;display:flex;flex-direction:column;gap:.8rem}
+.tl-row{
+  display:grid;grid-template-columns:70px 1fr;
+  gap:1rem;align-items:baseline;
+}
+.tl-y{
+  font-family:var(--sans);
+  font-size:.55rem;letter-spacing:.1em;
+  color:var(--g);text-align:right;
+}
+.tl-t{
+  font-family:var(--sans);
+  font-size:.75rem;color:var(--mid);
+  border-left:1px solid var(--rule);
+  padding-left:1rem;
+}
+.tl-t strong{color:var(--c);font-weight:400}
+
+/* ── BOOK FULL ── */
+#book{padding:8rem 0;position:relative}
+.book-wrap{max-width:1100px;margin:0 auto;padding:0 5vw}
+
+.book-header{
+  display:grid;grid-template-columns:1fr 2fr;
+  gap:4rem;align-items:end;margin-bottom:5rem;
+}
+.book-header-left .sec-label{
+  font-family:var(--sans);
+  font-size:.55rem;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--g);
+  margin-bottom:1.2rem;display:block;
+}
+.book-title{
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:900;font-style:italic;
+  line-height:.95;
+}
+.book-title em{color:var(--g)}
+.book-header-right{
+  font-family:var(--sans);
+  font-size:.8rem;font-weight:300;
+  color:var(--mid);line-height:1.8;
+  border-left:1px solid var(--rule);
+  padding-left:2.5rem;
+}
+
+/* book layout: cover + chapters */
+.book-body{display:grid;grid-template-columns:280px 1fr;gap:4rem}
+
+/* book cover 3D */
+.book-cover{
+  width:220px;
+  aspect-ratio:2/3;
+  position:relative;
+  transform:perspective(800px) rotateY(-8deg);
+  transform-origin:left center;
+  transition:transform .4s ease;
+  flex-shrink:0;
+  align-self:start;
+}
+.book-cover:hover{transform:perspective(800px) rotateY(-2deg)}
+.book-face{
+  width:100%;height:100%;
+  background:linear-gradient(160deg,var(--bg3) 0%,#0a0805 100%);
+  border:1px solid rgba(200,162,70,.2);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:2rem 1.5rem;
+  text-align:center;
+  position:relative;
+  box-shadow:8px 8px 40px rgba(0,0,0,.7),-2px 0 0 var(--gd);
+}
+.book-face::before{
+  content:'';position:absolute;
+  left:0;top:0;width:5px;height:100%;
+  background:linear-gradient(to bottom,var(--gd),var(--g),var(--gd));
+}
+.book-face::after{
+  content:'';position:absolute;inset:10px;
+  border:1px solid rgba(200,162,70,.1);
+  pointer-events:none;
+}
+.bf-dr{font-size:3rem;font-style:italic;font-weight:900;color:var(--g);line-height:1;margin-bottom:.5rem}
+.bf-line{width:24px;height:1px;background:var(--g);margin:.8rem auto;opacity:.5}
+.bf-title{font-size:.9rem;font-style:italic;color:var(--c);line-height:1.3;margin-bottom:.4rem}
+.bf-sub{font-family:var(--sans);font-size:.45rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mid)}
+.bf-date{
+  position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);
+  font-family:var(--sans);font-size:.45rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--gd);white-space:nowrap;
+}
+
+/* chapters */
+.chapters{display:flex;flex-direction:column;gap:0}
+.ch{
+  padding:1.5rem 0;
+  border-bottom:1px solid var(--rule);
+  display:grid;grid-template-columns:44px 1fr;
+  gap:1.5rem;align-items:start;
+  transition:background .3s;
+}
+.ch:first-child{border-top:1px solid var(--rule)}
+.ch:hover .ch-num{color:var(--g)}
+.ch-num{
+  font-size:2.2rem;font-weight:900;font-style:italic;
+  color:var(--bg3);line-height:1;
+  transition:color .3s;
+}
+.ch-title{
+  font-size:1.05rem;font-style:italic;
+  color:var(--c);line-height:1.3;margin-bottom:.3rem;
+}
+.ch-desc{
+  font-family:var(--sans);
+  font-size:.7rem;font-weight:300;
+  color:var(--mid);line-height:1.6;
+}
+
+/* ── COUNTDOWN + CTA ── */
+#cta{
+  padding:8rem 0;
+  background:var(--bg2);
+  border-top:1px solid var(--rule);
+  position:relative;overflow:hidden;
+}
+.cta-bg-dr{
+  position:absolute;
+  font-size:30rem;font-style:italic;font-weight:900;
+  color:rgba(16,13,9,.6);right:-5rem;top:50%;
+  transform:translateY(-50%);
+  line-height:1;user-select:none;
+}
+.cta-wrap{
+  max-width:900px;margin:0 auto;padding:0 5vw;
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;
+}
+.cta-left .sec-label{
+  font-family:var(--sans);
+  font-size:.55rem;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--g);
+  margin-bottom:1.5rem;display:block;
+}
+.cta-left h2{
+  font-size:clamp(2rem,3.5vw,3rem);
+  font-weight:700;font-style:italic;
+  line-height:1.15;margin-bottom:1.2rem;
+}
+.cta-left p{
+  font-family:var(--sans);font-size:.78rem;
+  font-weight:300;color:var(--mid);line-height:1.75;
+}
+
+/* phases */
+.phases{display:flex;flex-direction:column;gap:0;margin:2rem 0}
+.phase-row{
+  display:grid;grid-template-columns:80px 1fr 60px;
+  gap:1rem;align-items:center;
+  padding:.9rem 0;border-bottom:1px solid var(--rule);
+}
+.phase-row:last-child{border-bottom:none}
+.ph-date{
+  font-family:var(--sans);font-size:.55rem;
+  letter-spacing:.12em;color:var(--g);font-weight:400;
+}
+.ph-name{
+  font-family:var(--serif);font-style:italic;font-size:.95rem;
+  color:var(--c);
+}
+.ph-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--bg3);border:1px solid var(--rule);
+  justify-self:end;
+}
+.ph-dot.now{background:var(--g);box-shadow:0 0 8px rgba(200,162,70,.6)}
+
+.cta-right{}
+.countdown-label{
+  font-family:var(--sans);font-size:.55rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--mid);margin-bottom:1.5rem;
+}
+.countdown-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--rule);
+  border:1px solid var(--rule);
+  margin-bottom:2.5rem;
+}
+.cd-cell{
+  background:var(--bg);
+  padding:1.5rem 1rem;text-align:center;
+}
+.cd-n{
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:900;font-style:italic;
+  color:var(--c);line-height:1;
+  display:block;
+}
+.cd-l{
+  font-family:var(--sans);font-size:.5rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--mid);margin-top:.4rem;display:block;
+}
+.price-row{
+  display:flex;align-items:baseline;gap:.4rem;
+  margin-bottom:.5rem;
+}
+.price-big{
+  font-size:clamp(2.5rem,4vw,3.5rem);
+  font-weight:900;color:var(--g);line-height:1;
+}
+.price-cur{
+  font-family:var(--sans);font-weight:300;
+  font-size:1.1rem;color:var(--gd);
+}
+.price-note{
+  font-family:var(--sans);font-size:.6rem;
+  color:var(--mid);margin-bottom:2rem;
+}
+
+/* form */
+.nform{display:flex;flex-direction:column;gap:.8rem}
+.nform-row{display:flex;gap:0}
+.nform input{
+  flex:1;padding:.9rem 1rem;
+  background:var(--bg);border:1px solid var(--rule);
+  border-right:none;color:var(--c);
+  font-family:var(--sans);font-size:.75rem;font-weight:300;
+  outline:none;transition:border-color .3s;
+}
+.nform input:focus{border-color:rgba(200,162,70,.5)}
+.nform input::placeholder{color:var(--mid)}
+.nform button{
+  padding:.9rem 1.4rem;background:var(--g);color:var(--bg);
+  font-family:var(--sans);font-size:.58rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  font-weight:500;border:none;cursor:pointer;
+  transition:background .3s;white-space:nowrap;
+}
+.nform button:hover{background:#d4ae58}
+.nform-note{
+  font-family:var(--sans);font-size:.58rem;color:var(--mid);
+}
+.success-msg{
+  display:none;
+  font-family:var(--sans);font-size:.72rem;
+  color:var(--g);font-style:italic;
+  padding:1rem;border:1px solid var(--rule);
+}
+
+/* ── PROOF ── */
+#proof{padding:7rem 0;border-top:1px solid var(--rule)}
+.proof-wrap{max-width:1100px;margin:0 auto;padding:0 5vw}
+.proof-header{
+  display:flex;justify-content:space-between;
+  align-items:flex-end;margin-bottom:4rem;
+}
+.proof-header h2{
+  font-size:clamp(2rem,3.5vw,3rem);
+  font-weight:700;font-style:italic;
+}
+.proof-stat{
+  font-family:var(--sans);text-align:right;
+  font-size:.7rem;color:var(--mid);font-weight:300;
+}
+.proof-stat strong{
+  display:block;font-family:var(--serif);
+  font-size:2.5rem;font-style:italic;font-weight:700;
+  color:var(--g);line-height:1;
+}
+.proof-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--rule);
+}
+.proof-card{
+  background:var(--bg);
+  padding:2rem 1.8rem;
+}
+.pc-quote{
+  font-style:italic;font-size:.95rem;
+  color:var(--mid);line-height:1.75;
+  margin-bottom:1.5rem;
+}
+.pc-author{
+  font-family:var(--sans);font-size:.5rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--g);
+}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--rule);
+  padding:3rem 5vw;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1.5rem;
+}
+.f-logo{
+  font-family:var(--serif);font-size:1.8rem;
+  font-style:italic;font-weight:700;color:var(--g);opacity:.7;
+}
+.f-links{display:flex;gap:2rem}
+.f-links a{
+  font-family:var(--sans);font-size:.55rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--mid);text-decoration:none;
+  transition:color .3s;
+}
+.f-links a:hover{color:var(--c)}
+.f-copy{
+  font-family:var(--sans);font-size:.5rem;
+  color:var(--mid);opacity:.5;letter-spacing:.1em;
+}
+
+/* ── SCROLL REVEAL ── */
+.sr{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.sr.vis{opacity:1;transform:none}
+.sr-l{opacity:0;transform:translateX(-28px);transition:opacity .8s ease,transform .8s ease}
+.sr-l.vis{opacity:1;transform:none}
+.sr-r{opacity:0;transform:translateX(28px);transition:opacity .8s ease,transform .8s ease}
+.sr-r.vis{opacity:1;transform:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .hero-left{padding:3rem 2rem;justify-content:center;min-height:100vh}
+  #about{grid-template-columns:1fr}
+  .about-visual{min-height:50vw}
+  .about-content{padding:3rem 2rem}
+  .book-header{grid-template-columns:1fr}
+  .book-body{grid-template-columns:1fr}
+  .book-cover{transform:none;width:180px}
+  .cta-wrap{grid-template-columns:1fr}
+  .proof-header{flex-direction:column;align-items:flex-start;gap:1.5rem}
+  .proof-cards{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center}
+  .f-links{justify-content:center}
+}
+  </style>
+</head>
+<body>
+
+<!-- cursor -->
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- ════ HERO ════ -->
+<section id="hero">
+  <div class="hero-vline"></div>
+
+  <div class="hero-left">
+    <p class="hero-eyebrow" style="opacity:0;animation:fadeUp .8s .1s forwards">Верчелли · 1951 &nbsp;·&nbsp; Москва · 2026</p>
+    <h1 class="hero-h1" style="opacity:0;animation:fadeUp .9s .3s forwards">
+      Первый<br/>миллион<br/>в <em style="color:var(--g)">27.</em>
+      <span>Всё что он знает — в одной книге</span>
+    </h1>
+    <p class="hero-desc" style="opacity:0;animation:fadeUp .9s .5s forwards">51 год в бизнесе. Рынок Верчелли. Кризис лиры. Контракты по Европе. Дон Рикко впервые говорит всё.</p>
+    <div class="hero-actions" style="opacity:0;animation:fadeUp .9s .7s forwards">
+      <a href="#cta" class="btn btn-fill">Хочу книгу первым</a>
+      <button class="btn btn-ghost" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Узнать больше</button>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-ambient">DR</div>
+    <div class="hero-big-stat" style="opacity:0;animation:fadeUp .9s .6s forwards">
+      <div class="hero-big-num">1978</div>
+      <div class="hero-big-label">год первого миллиона</div>
+    </div>
+    <div class="hero-year-tag">Верчелли · Италия · 1951</div>
+  </div>
+</section>
+
+<!-- ════ TICKER ════ -->
+<div id="ticker">
+  <div class="ticker-track" id="tt"></div>
+</div>
+
+<!-- ════ FULL WIDTH QUOTE ════ -->
+<section id="fw-quote">
+  <div class="fw-bg-text">1978</div>
+  <div class="fw-quote-wrap">
+    <p class="fw-quote-num sr">/ 01 цитата из книги</p>
+    <blockquote class="fw-quote-text sr">
+      Мужчина с мышлением бедности <em>всегда виден за столом</em>. Не по одежде — по тому, о чём он говорит.
+    </blockquote>
+    <p class="fw-quote-attr sr">Дон Рикко · из книги «Код богатства»</p>
+  </div>
+</section>
+
+<!-- ════ ABOUT SPLIT ════ -->
+<section id="about">
+  <div class="about-visual sr-l">
+    <div class="about-portrait-ph"></div>
+    <div class="about-visual-bg"></div>
+    <div class="about-visual-caption">
+      <div class="about-visual-name">Дон Рикко</div>
+      <div class="about-visual-loc">Верчелли, Северная Италия</div>
+    </div>
+  </div>
+
+  <div class="about-content sr-r">
+    <span class="label">О Доне Рикко</span>
+    <h2>Меня не учили.<br/>Я учился у рынка.</h2>
+    <p>В 1964 году, в 13 лет, я стоял на рынке Верчелли. Мать работала на трёх работах. Отца не было с четырёх лет. <strong>Я понял одно: деньги — это не везение. Это система.</strong></p>
+    <p>В 1973 — кризис лиры. Потери. В 1975 — первая лавка и встреча с богатым итальянцем 65 лет. За эспрессо он сказал мне несколько вещей, которые изменили всё.</p>
+    <p><strong>1978. 27 лет. Первый миллион.</strong> Контракты по всей Европе. 51 год в бизнесе.</p>
+
+    <div class="tl">
+      <div class="tl-row"><span class="tl-y">1964</span><span class="tl-t">13 лет — рынок Верчелли</span></div>
+      <div class="tl-row"><span class="tl-y">1973</span><span class="tl-t">Кризис лиры. Первые потери.</span></div>
+      <div class="tl-row"><span class="tl-y">1975</span><span class="tl-t">Первая лавка. Встреча со стариком 65 лет.</span></div>
+      <div class="tl-row"><span class="tl-y">1978</span><span class="tl-t"><strong>Первый миллион. 27 лет.</strong></span></div>
+      <div class="tl-row"><span class="tl-y">2026</span><span class="tl-t">Впервые — всё на бумаге.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ BOOK ════ -->
+<section id="book">
+  <div class="book-wrap">
+    <div class="book-header sr">
+      <div class="book-header-left">
+        <span class="sec-label">Книга · 6 июля 2026</span>
+        <h2 class="book-title"><em>Код</em><br/>богатства</h2>
+      </div>
+      <div class="book-header-right">
+        51 год в бизнесе — и ни одной книги. Дон Рикко никогда не писал. Не вёл блог. Не читал лекций. Всё что знает — было только у него в голове. До сейчас.
+      </div>
+    </div>
+
+    <div class="book-body">
+      <div class="book-cover sr">
+        <div class="book-face">
+          <div class="bf-dr">DR</div>
+          <div class="bf-line"></div>
+          <div class="bf-title">Код богатства</div>
+          <div class="bf-sub">Дон Рикко</div>
+          <div class="bf-date">6 · VII · 2026</div>
+        </div>
+      </div>
+
+      <div class="chapters sr">
+        <div class="ch">
+          <div class="ch-num">I</div>
+          <div>
+            <div class="ch-title">Мышление бедности видно за столом</div>
+            <div class="ch-desc">Почему умные люди часто беднее — и как это работает изнутри.</div>
+          </div>
+        </div>
+        <div class="ch">
+          <div class="ch-num">II</div>
+          <div>
+            <div class="ch-title">Ты сидишь не за тем столом</div>
+            <div class="ch-desc">Близость к капиталу. Близость к влиянию. Близость к нужным людям.</div>
+          </div>
+        </div>
+        <div class="ch">
+          <div class="ch-num">III</div>
+          <div>
+            <div class="ch-title">Невидимое богатство</div>
+            <div class="ch-desc">Богатые ведут себя иначе — не потому что могут, а потому что знают.</div>
+          </div>
+        </div>
+        <div class="ch">
+          <div class="ch-num">IV</div>
+          <div>
+            <div class="ch-title">Первый миллион — это не деньги</div>
+            <div class="ch-desc">Что происходит у тебя в голове за 3 года до того, как цифра появляется на счету.</div>
+          </div>
+        </div>
+        <div class="ch">
+          <div class="ch-num">V</div>
+          <div>
+            <div class="ch-title">Богатство — это привычка семьи</div>
+            <div class="ch-desc">Почему одни семьи богатеют поколениями, а другие сбрасывают капитал за одно.</div>
+          </div>
+        </div>
+        <div class="ch">
+          <div class="ch-num">VI</div>
+          <div>
+            <div class="ch-title">Система, а не везение</div>
+            <div class="ch-desc">51 год в бизнесе. Один принцип, который остался неизменным.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CTA + COUNTDOWN ════ -->
+<section id="cta">
+  <div class="cta-bg-dr">DR</div>
+  <div class="cta-wrap">
+    <div class="cta-left sr-l">
+      <span class="sec-label">Предзаказ</span>
+      <h2>Получи книгу <em style="color:var(--g)">первым</em></h2>
+      <p>6 июня — анонс. 20 июня — открывается предзаказ с оплатой. 6 июля — книга выходит. Первые 100 получат лично от Дон Рикко.</p>
+
+      <div class="phases">
+        <div class="phase-row">
+          <span class="ph-date">6 июня</span>
+          <span class="ph-name">Анонс и ожидание</span>
+          <div class="ph-dot now"></div>
+        </div>
+        <div class="phase-row">
+          <span class="ph-date">20 июня</span>
+          <span class="ph-name">Предзаказ с оплатой</span>
+          <div class="ph-dot"></div>
+        </div>
+        <div class="phase-row">
+          <span class="ph-date">6 июля</span>
+          <span class="ph-name">Книга выходит</span>
+          <div class="ph-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-right sr-r">
+      <p class="countdown-label">До выхода книги</p>
+      <div class="countdown-grid">
+        <div class="cd-cell"><span class="cd-n" id="cd-d">--</span><span class="cd-l">дней</span></div>
+        <div class="cd-cell"><span class="cd-n" id="cd-h">--</span><span class="cd-l">часов</span></div>
+        <div class="cd-cell"><span class="cd-n" id="cd-m">--</span><span class="cd-l">минут</span></div>
+      </div>
+
+      <div class="price-row">
+        <span class="price-cur">₽</span>
+        <span class="price-big">1 000</span>
+      </div>
+      <p class="price-note">Одна книга. Одна цена. Без скидок.</p>
+
+      <div class="nform" id="nform">
+        <div class="nform-row">
+          <input type="email" placeholder="Твой e-mail" required id="em-input"/>
+          <button onclick="submitForm()">Уведомить</button>
+        </div>
+        <p class="nform-note">Напишем в день открытия предзаказа — 20 июня.</p>
+      </div>
+      <div class="success-msg" id="ok-msg">Хорошо. 20 июня ты узнаешь первым. — DR</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PROOF ════ -->
+<section id="proof">
+  <div class="proof-wrap">
+    <div class="proof-header sr">
+      <h2>Они уже<br/>слышали его</h2>
+      <div class="proof-stat">
+        <strong>167 K</strong>
+        просмотров за<br/>10 дней · один ролик
+      </div>
+    </div>
+    <div class="proof-cards">
+      <div class="proof-card sr">
+        <p class="pc-quote">«Первый раз понял что дело не в деньгах — а в том как я о них думаю.»</p>
+        <p class="pc-author">Алексей · Москва</p>
+      </div>
+      <div class="proof-card sr">
+        <p class="pc-quote">«За 75 лет он видел всё. В каждом слове нет воды — только суть.»</p>
+        <p class="pc-author">Дмитрий · Санкт-Петербург</p>
+      </div>
+      <div class="proof-card sr">
+        <p class="pc-quote">«Сохраняю каждое видео. Жду книгу — хочу перечитывать.»</p>
+        <p class="pc-author">Максим · Екатеринбург</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="f-logo">DR</div>
+  <div class="f-links">
+    <a href="https://instagram.com/donricco.money" target="_blank">Instagram</a>
+    <a href="#cta">Предзаказ</a>
+    <a href="#about">О Доне Рикко</a>
+    <a href="#book">Книга</a>
+  </div>
+  <p class="f-copy">© 2026 Дон Рикко · donricco.site</p>
+</footer>
+
+<style>
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+</style>
+
+<script>
+/* cursor */
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+document.querySelectorAll('a,button,.book-cover').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.transform='translate(-50%,-50%) scale(1.8)';ring.style.borderColor='rgba(200,162,70,.7)'});
+  el.addEventListener('mouseleave',()=>{ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.borderColor='rgba(200,162,70,.4)'});
+});
+
+/* ticker */
+const items=['· 51 год в бизнесе','· Первый миллион в 27','· Верчелли, Италия','· 1978','· Книга 6 июля 2026','· 167 000 просмотров','· Код богатства'];
+const tt=document.getElementById('tt');
+const full=[...items,...items,...items,...items].map(t=>`<span class="ticker-item"><span>DR</span>${t}</span>`).join('');
+tt.innerHTML=full;
+
+/* countdown */
+function tick(){
+  const t=new Date('2026-07-06T00:00:00+03:00')-Date.now();
+  if(t<=0){document.getElementById('cd-d').textContent=document.getElementById('cd-h').textContent=document.getElementById('cd-m').textContent='0';return}
+  document.getElementById('cd-d').textContent=String(Math.floor(t/86400000)).padStart(2,'0');
+  document.getElementById('cd-h').textContent=String(Math.floor(t%86400000/3600000)).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(Math.floor(t%3600000/60000)).padStart(2,'0');
+}
+tick();setInterval(tick,30000);
+
+/* scroll reveal */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}});
+},{threshold:.1});
+document.querySelectorAll('.sr,.sr-l,.sr-r').forEach(el=>obs.observe(el));
+
+/* form */
+function submitForm(){
+  const v=document.getElementById('em-input').value;
+  if(!v||!v.includes('@'))return;
+  document.getElementById('nform').style.display='none';
+  document.getElementById('ok-msg').style.display='block';
+}
+</script>
+</body>
+</html>
